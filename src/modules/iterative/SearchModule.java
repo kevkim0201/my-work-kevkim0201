@@ -58,6 +58,7 @@ public class SearchModule {
 
 
     public static void main(String[] args){
+
         int answer;
         int[] array = {60, 41, 92, 32, 12, 52, 21};
         answer = binarySearch(array,41);
