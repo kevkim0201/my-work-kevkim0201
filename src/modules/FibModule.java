@@ -2,29 +2,78 @@ package modules;
 
 import functions.Fib;
 
+import java.sql.Array;
+
 /****************************************************************
  * This module is included for the Fibonacci Recursion Exercise
  ****************************************************************/
+
 public class FibModule {
 
     public static long fib(int n) {
         //TODO : COMPLETE BODY OF RECURSIVE METHOD
-        return 0;
+
+        if (n == 0){
+            return 0;
+        }
+        else if (n == 1){
+            return 1;
+        }
+        else{
+            return fib(n-1) + fib(n-2);
+        }
+
     }
+
 
     public static long ifib(int n) {
         //TODO : COMPLETE BODY OF ITERATIVE METHOD
-        return 0;
+
+        if (n <= 1){
+            return n;
+        }
+
+        int fib = 1;
+        int prevNumber = 1;
+
+        for (int i = 2; i<n; i++){
+            int temp = fib;
+            fib = fib + prevNumber;
+            prevNumber = temp;
+        }
+        return fib;
+
     }
+
+
 
     public static long mfib(int n) {
         //TODO : COMPLETE BODY OF MEMOIZATION METHOD
-        return 0;
+
+        if (n == 0) {
+            return 0;
+        } else if (n == 1) {
+            return 1;
+        } else {
+            long[] x = new long[n];
+            x[0] = 0;
+            x[1] = 1;
+
+            if (n != 2){
+                x[n-1] = memo(n-1, x);
+            }
+
+            return x[n-1] + x[n-2];
+        }
     }
 
-    private static long memo(int n, int[] x) {
+    private static long memo(int n, long[] x) {
         //TODO : COMPLETE BODY OF MEMOIZATION HELPER METHOD
-        return 0;
+
+        if (x[n] == 0){
+            x[n] = memo(n-1,x) + x[n-2];
+        }
+        return x[n];
     }
 
 
