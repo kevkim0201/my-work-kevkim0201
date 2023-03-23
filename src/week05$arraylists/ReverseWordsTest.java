@@ -40,7 +40,7 @@ public class ReverseWordsTest {
 
         //TODO: REVERSE LINES
         for (int i = line.size() - 1; i > 0; i--) {
-            list.add(line.get(i));
+            list.add(0, line.get(i));
         }
 
         //TODO: REVERSE WORDS
