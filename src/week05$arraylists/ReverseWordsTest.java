@@ -37,6 +37,7 @@ public class ReverseWordsTest {
 
         //TODO: REVERSE LINES
 
+
         //TODO: REVERSE WORDS
 
         while (scanner.hasNext()) {
@@ -67,17 +68,6 @@ public class ReverseWordsTest {
 
     }
 
-
-    /*    public static void removeBookEnd(ArrayList<String> list){
-            for (int i=0; i<list.size();i++){
-                String word = list.get(i);
-                if (word.endsWith("BookEnd")){
-                    list.remove(i);
-                    i--;
-                }
-            }
-        }
-    */
     public static void main(String[] args) throws IOException {
         String inputLocation = "." + File.separator + "data"
                 + File.separator + "words.txt";
@@ -100,23 +90,11 @@ public class ReverseWordsTest {
         //TODO: process items in file
 
         read(inputLocation, list);
-
-
-//        if (inputFile.exists()){
-//            while (input.hasNext()){
-//                list.add(input.nextLine());
-//           }
-//        }
-
-
-//        removeBookEnd(list);
-
         write(outputLocation, list);
 
         for (String word : list) {
             output.print(word + " ");
         }
-
 
         System.out.println();
         input.close();
