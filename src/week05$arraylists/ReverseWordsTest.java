@@ -2,7 +2,6 @@ package week05$arraylists;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,49 +25,66 @@ public class ReverseWordsTest {
         System.out.println();
     }
 
-    public static void read(String inputLocation, List<String> list) throws IOException {
+    public static void read(String inputLocation, List<String> list) throws FileNotFoundException {
         //TODO: READ IN DATA FROM INPUT FILE LOCATION
         File file = new File(inputLocation);
+
+        // open up an input file stream
         Scanner scanner = new Scanner(file);
 
-        ArrayList<String> line = new ArrayList<>();
+        // store words in reverse for each line
+        ArrayList<String> reverseList = new ArrayList<>();
 
+        // read in data with scanner
+        while (scanner.hasNextLine()) {
 
+            // grab the next line in file
+            String line = scanner.nextLine();
 
-        //TODO: REVERSE LINES
-
+            // break up words in line and put them in index
+            String[] array = line.split(" ");
 
         //TODO: REVERSE WORDS
+            // reverse the words and store them the arrayList
+            for (String word : array) {
+                reverseList.add(0, word);
+            }
 
-        while (scanner.hasNext()) {
-            String name = scanner.next();
-            line.add(name);
+            StringBuilder string = new StringBuilder();
+
+            // add line back to the overall list in reverse
+            for (String word : reverseList) {
+                string.append(word).append(" ");
+            }
+
+        //TODO: REVERSE LINES
+            // add each line in reverse to list
+            list.add(0, string.toString());
+
+            // clear words in each line
+            reverseList.clear();
         }
 
-        for (int i = line.size() - 1; i >= 0; i--) {
-            list.add(line.get(i));
-        }
-
-
+        // close input stream
         scanner.close();
     }
 
 
     public static void write(String outputLocation, List<String> list) throws FileNotFoundException {
+
         //TODO : WRITE TO OUTPUT FILE LOCATION
-        File file = new File("reverse_words.txt");
         PrintStream writer = new PrintStream(outputLocation);
 
-        if (file.exists()) {
-            for (int i = 0; i < list.size(); i++) {
-                writer.println(list.get(i) + "\n");
-            }
+        // traverse the list and get each item at each index
+        for (String line : list) {
+            writer.println(line);
         }
+
         writer.close(); //close output stream
 
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws FileNotFoundException {
         String inputLocation = "." + File.separator + "data"
                 + File.separator + "words.txt";
 
@@ -79,26 +95,9 @@ public class ReverseWordsTest {
 
         ArrayList<String> list = new ArrayList<>();
 
-        File inputFile = new File(inputLocation);
-        File outputFile = new File(outputLocation);
-
-        Scanner input = new Scanner(inputFile);
-        PrintStream output = new PrintStream(outputFile);
-
-        System.out.println();
-
         //TODO: process items in file
-
         read(inputLocation, list);
         write(outputLocation, list);
-
-        for (String word : list) {
-            output.print(word + " ");
-        }
-
-        System.out.println();
-        input.close();
-        output.close();
 
     }
 }
