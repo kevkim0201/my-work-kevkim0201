@@ -33,17 +33,21 @@ public class ReverseWordsTest {
 
         ArrayList<String> line = new ArrayList<>();
 
+
+
+        //TODO: REVERSE LINES
+
+        //TODO: REVERSE WORDS
+
         while (scanner.hasNext()) {
             String name = scanner.next();
             line.add(name);
         }
 
-        //TODO: REVERSE LINES
-        for (int i = line.size() - 1; i > 0; i--) {
-            list.add(0, line.get(i));
+        for (int i = line.size() - 1; i >= 0; i--) {
+            list.add(line.get(i));
         }
 
-        //TODO: REVERSE WORDS
 
         scanner.close();
     }
@@ -72,14 +76,13 @@ public class ReverseWordsTest {
                     i--;
                 }
             }
-
         }
     */
     public static void main(String[] args) throws IOException {
         String inputLocation = "." + File.separator + "data"
                 + File.separator + "words.txt";
 
-        String outputLocation = "." + File.separator + "results"
+        String outputLocation = "." + File.separator + "src" + File.separator + "results"
                 + File.separator + "reverse_words.txt";
 
         //TODO: update program to use an Array List
@@ -99,11 +102,6 @@ public class ReverseWordsTest {
         read(inputLocation, list);
 
 
-        for (String lines : list) {
-            input.next(lines);
-        }
-
-
 //        if (inputFile.exists()){
 //            while (input.hasNext()){
 //                list.add(input.nextLine());
@@ -116,7 +114,7 @@ public class ReverseWordsTest {
         write(outputLocation, list);
 
         for (String word : list) {
-            output.println(word);
+            output.print(word + " ");
         }
 
 
