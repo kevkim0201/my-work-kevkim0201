@@ -29,6 +29,12 @@ public class MyStack <E> {
         size  = 0;
     }
 
+    /**
+     * Private helper method that removes the node at
+     * the top of the stack and returns removed item.
+     *
+     * @return the removed item from the stack
+     */
     private E detach(){
         Node<E> removeNode = last;
 
@@ -38,10 +44,24 @@ public class MyStack <E> {
         return deletedItem;
     }
 
+
+    /**
+     * Checks if the stack is empty
+     *
+     * @return true if there are no items in the stack
+     */
     public boolean isEmpty(){
         return last == null && size == 0;
     }
 
+
+    /**
+     * Returns the item at the top of the stack
+     * without removing it from the stack.
+     * Throws an exception is stack is empty
+     *
+     * @return the item that is at the top of the stack
+     */
     public E peek(){
         if (isEmpty()){
             throw new EmptyStackException();
@@ -51,17 +71,28 @@ public class MyStack <E> {
         }
     }
 
+    /**
+     * Removes and returns the item at the
+     * top of the stack. Throws an exception
+     * is stack is empty
+     *
+     * @return the removed item at top of stack
+     */
     public E pop(){
         if (isEmpty()){
             throw new EmptyStackException();
         }
-
         E topNode = detach();
         size--;
         return topNode;
     }
 
-
+    /**
+     * Places an item on top of the stack
+     *
+     * @param item is placed on top of the stack
+     * @return the item that is on top of the stack
+     */
     public E push(E item){
         Node<E> newNode = new Node<> (item, last);
 
@@ -77,10 +108,20 @@ public class MyStack <E> {
 
     }
 
+    /**
+     * Checks the size of the stack
+     *
+     * @return the number of items in the stack
+     */
     public int size(){
         return size;
     }
 
+    /**
+     * Prints out the content inside the stack from bottom to top
+     *
+     * @return the string/words inside the stack
+     */
     public String toString(){
         if (isEmpty()){
             return "[]";
