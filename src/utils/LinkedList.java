@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 /*****************************************************************
  * This class LinkedList implements linked data structures using
  * a Doubly Linked List (DLL).
- *
+ * <p>
  * TODO : Please Complete the Following
  *        1. Comment all steps in your methods used for its
  *           implementation. Be clear and precise.
@@ -31,12 +31,28 @@ public class LinkedList <E> implements List<E> {
     }
 
 
+    /**
+     * Adds an item to the end of the list
+     * Uses append method and updates the size
+     * by 1, while checking enough spaces
+     *
+     * @param item is added to the end of the list
+     * @return true if item is added successfully
+     */
     public boolean add(E item){
         append(item);
         size++;
         return true;
     }
 
+    /**
+     * Inserts an item at a specified index in the
+     * list and shifts the subsequent items to the right
+     * Uses method insertBefore and append for this
+     *
+     * @param index is the position where the item is added to
+     * @param item is the new item being added to the index
+     */
     public void add(int index, E item){
         if (index == size){
             append(item);
@@ -48,6 +64,13 @@ public class LinkedList <E> implements List<E> {
         size++;
     }
 
+    /**
+     * Private helper method that adds element to
+     * the back of the list, but does not update the
+     * size of the list
+     *
+     * @param item is added to the end of the list
+     */
     public void append( E item){
         Node<E> node = new Node<>(last, item);
         if (first == null){
@@ -60,6 +83,13 @@ public class LinkedList <E> implements List<E> {
         last = node;
     }
 
+
+    /**
+     * Checks to see if given index is valid
+     * Throws an exception if index is invalid
+     *
+     * @param index is checked for validity
+     */
     private void checkIndex(int index){
         String message = "Invalid Index";
 
@@ -69,6 +99,12 @@ public class LinkedList <E> implements List<E> {
     }
 
 
+    /**
+     * Searches for a specific item within the linked structure
+     *
+     * @param item is searched for in the list
+     * @return true if item is found in the list
+     */
     public boolean contains(E item){
         for (Node<E> current = first; current != null; current = current.next){
             if(current.data.equals(item)){
@@ -79,12 +115,22 @@ public class LinkedList <E> implements List<E> {
     }
 
 
+    /**
+     * clears the entire list and sets size to 0
+     */
     public void clear(){
         Node<E> node = first;
         node.next = null;
         size = 0;
     }
 
+    /**
+     * Private helper method that detaches node at a specified
+     * index and returns the item
+     *
+     * @param index is the position where item is detached
+     * @return the detached item at a given index
+     */
     private E detach(int index){
         Node<E> current = first;
         for (int i = 0; i < index; i++){
@@ -105,8 +151,15 @@ public class LinkedList <E> implements List<E> {
         return current.data;
     }
 
+    /**
+     * Obtains the item at a specified index in a list
+     *
+     * @param index is the position where item is at
+     * @return the item at the specified index
+     */
     public E get(int index){
         checkIndex(index);
+
         Node<E> current;
 
         if (index < size / 2){
@@ -125,6 +178,13 @@ public class LinkedList <E> implements List<E> {
         return current.data;
     }
 
+    /**
+     * Searches for a specific item within the list
+     * and returns the location of the first occurrence
+     *
+     * @param item is being searched for in the list
+     * @return position (index) of item if found
+     */
     public int indexOf(E item){
         if (last != null && last.data.equals(item)){
             return size - 1;
@@ -141,6 +201,14 @@ public class LinkedList <E> implements List<E> {
         return -1;
     }
 
+    /**
+     * Private helper method that inserts an item
+     * before the non-null node at the specified
+     * index in the list. Traverses list.
+     *
+     * @param index will come after our added item
+     * @param item is inserted before the specified index
+     */
     private void insertBefore(int index, E item){
         Node<E> node = new Node<>(last, item, first);
         if (index == 0){
@@ -157,14 +225,31 @@ public class LinkedList <E> implements List<E> {
         }
     }
 
+    /**
+     * Checks to see if list is empty
+     *
+     * @return true if there are no elements in list
+     */
     public boolean isEmpty(){
         return first == null && size == 0;
     }
 
+    /**
+     * Gives access to private class LinkedIterator
+     *
+     * @return new LinkedIterator class
+     */
     public Iterator<E> iterator(){
         return new LinkedIterator();
     }
 
+    /**
+     * Private helper method that returns a reference
+     * to the node at the given position in the list.
+     *
+     * @param index is the position of the node
+     * @return a reference to the specified position in node
+     */
     private Node<E> node(int index){
         Node<E> current;
         if (index < size / 2){
@@ -182,67 +267,76 @@ public class LinkedList <E> implements List<E> {
         return current;
     }
 
+    /**
+     * Removes the item at a specified index
+     * checks for index beforehand, and detaches
+     * the item and decreases the size by 1
+     *
+     * @param index is the position where removal will occur
+     * @return the removed item from the list
+     */
     public E remove(int index){
         checkIndex(index);
         size--;
         return detach(index);
     }
 
+    /**
+     * Removes the first occurrence of the specified
+     * item from the list, if present. Shifts subsequent
+     * elemnts to the right and size is reduced by 1
+     *
+     * @param item is searched for in the list
+     * @return the index of the removed item
+     */
     public boolean remove(E item){
-        if (first == null){
-            return false;
-        }
-        Node<E> current;
 
-        for (current = first; current != null; current = current.next){
-            if(current.data.equals(item)){
-                if (current == first){
-                    first = current.next;
-                    if (first != null){
-                        first.prev = null;
-                    }
-                    else{
-                        last = null;
-                    }
-                }
-                else if(current == last){
-                    last = current.prev;
-                    if (last != null){
-                        last.next = null;
-                    }
-                    else{
-                        first = null;
-                    }
-                }
-                else {
-                    current.prev.next = current.next;
-                    current.next.prev = current.prev;
-                }
-                size--;
-                return true;
-            }
+        int indexItem = indexOf(item);
+
+        if (indexItem > -1) {
+
+            detach(indexItem);
+            size--;
         }
-        return false;
+
+        return indexItem > -1;
     }
 
+    /**
+     * Replaces the item at the specified position with
+     * a new item. Checks for index first, then sets the
+     * new item at the given index
+     *
+     * @param index is where the replacement occurs
+     * @param item replaces the oldItem at a given index
+     * @return the old item that was replaced
+     */
     public E set(int index, E item){
 
         checkIndex(index);
-        Node<E> current = first;
-        for (int i = 0; i < index; i++){
-            current = current.next;
-        }
-        E newItem = current.data;
-        current.data = item;
 
-        return newItem;
+        E oldItem = node(index).data;
+
+        node(index).data = item;
+
+        return oldItem;
 
     }
 
+    /**
+     * Returns the size of the list
+     *
+     * @return the number of elements in list
+     */
     public int size(){
         return size;
     }
 
+    /**
+     * Displays the content of the list
+     *
+     * @return string/words in the list
+     */
     public String toString(){
         if (isEmpty()) {
             return "[]";
@@ -283,11 +377,19 @@ public class LinkedList <E> implements List<E> {
                 throw new NoSuchElementException(message);
             }
 
+            // store the item at the current node
             E currentItem = current.data;
+
+            // update reference to go to the next node in sequence
             current = current.next;
+
+            // update index position to match node location
             position++;
+
+            // previous node can be deleted as we are now on next node
             isRemovable = true;
 
+            // return value of previous "current" node
             return currentItem;
         }
 
@@ -299,6 +401,7 @@ public class LinkedList <E> implements List<E> {
                 throw new IllegalStateException(message);
             }
 
+            // go back one position and remove that node
             LinkedList.this.remove(position - 1);
             isRemovable = false;
 
