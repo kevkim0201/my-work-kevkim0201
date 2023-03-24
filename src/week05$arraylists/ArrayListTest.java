@@ -1,5 +1,6 @@
 package week05$arraylists;
 
+
 public class ArrayListTest {
 
     public static void intro(){
@@ -40,10 +41,19 @@ public class ArrayListTest {
 
     public static void myVersionTest(){
         //TODO : Create println tests for each of your ArrayList methods
+        java.util.ArrayList<String> list = new java.util.ArrayList<String>();
+        list.add("Tom");
+        list.add("Ben");
+        list.add("Sam");
+        list.add("John");
+        list.add("Tim");
+        System.out.println(list.size());
+        System.out.println(list);
     }
 
     public static void main(String[] args) {
         intro();
+        libraryVersionTest();
         myVersionTest();
     }
 }
