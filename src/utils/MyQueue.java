@@ -29,12 +29,27 @@ public class MyQueue <E> {
         size = 0;
     }
 
+    /**
+     * Places given item at back of the queue
+     * Uses the append helper method and size
+     * is increase by 1 at the end
+     *
+     * @param item is added to the back of the queue
+     * @return true if item has been successfully added
+     */
     public boolean add(E item){
         append(item);
         size++;
         return true;
     }
 
+    /**
+     * Private helper method that helps add an item
+     * to the back of the queue. Does not update the
+     * number of items in the queue
+     *
+     * @param item is added to the back of the queue
+     */
     private void append(E item){
         Node<E> oldLast = last;
 
@@ -50,6 +65,13 @@ public class MyQueue <E> {
         }
     }
 
+    /**
+     * Private helper method that helps remove
+     * the node at the front of the queue
+     * and returns the deleted item
+     *
+     * @return the deleted item from the queue
+     */
     private E detach(){
         Node<E> deletedNode = first;
         E deletedItem = deletedNode.data;
@@ -58,10 +80,21 @@ public class MyQueue <E> {
         return deletedItem;
     }
 
+    /**
+     * Checks to see if queue is empty
+     *
+     * @return true if there are no items in queue
+     */
     public boolean isEmpty(){
         return size == 0 && first == null;
     }
 
+    /**
+     * Returns the front item of the queue without removing it
+     * Null is returned if queue is empty
+     *
+     * @return the item in the front of the queue
+     */
     public E peek(){
         if(isEmpty()){
             return null;
@@ -71,6 +104,12 @@ public class MyQueue <E> {
         }
     }
 
+    /**
+     * Removes element from front of queue and reduces size of queue.
+     * Exception is thrown if queue is empty
+     *
+     * @return the detached front item from the queue
+     */
     public E remove(){
         if(isEmpty()){
             throw new NoSuchElementException();
@@ -82,11 +121,20 @@ public class MyQueue <E> {
         }
     }
 
-
+    /**
+     * Returns the size of the queue
+     *
+     * @return the number of elements in the queue
+     */
     public int size(){
         return size;
     }
 
+    /**
+     * Display the content of the queue from front to back
+     *
+     * @return the string/words in the queue
+     */
     public String toString(){
         if(isEmpty()){
             return "[]";
